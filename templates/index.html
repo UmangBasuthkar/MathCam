@@ -4,58 +4,61 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Math Solver with Hand Gestures</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body class="bg-gray-900 text-white">
-    <div class="container mx-auto px-4 py-4">
-        <div class="flex items-center space-x-3">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-gray-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+<body class="bg-dark text-white">
+    <div class="container py-4">
+        <div class="d-flex align-items-center mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="bi bi-journal-bookmark me-3 text-white" width="32" height="32" fill="currentColor" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M6 8V1h5v7l-2.5-1.5L6 8zM3 0h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2zm1 2a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H4z"/>
             </svg>
-            <h1 class="text-2xl font-bold">Math Solver with Hand Gestures</h1>
+            <h1 class="h4 fw-bold">Math Solver with Hand Gestures</h1>
         </div>
     </div>
 
-    <main class="container mx-auto px-4 py-8 max-w-4xl space-y-6">
-        <div class="text-center space-y-2">
-            <h2 class="text-2xl font-bold">Solve Math Problems</h2>
+    <main class="container py-4">
+        <div class="text-center mb-4">
+            <h2 class="h4 fw-bold">Solve Math Problems</h2>
             <p>Use hand gestures to write your math problem</p>
         </div>
 
-        <div id="tipAlert" class="bg-blue-500 text-white p-4 rounded flex justify-between items-center">
+        <div id="tipAlert" class="alert alert-primary d-flex justify-content-between align-items-center" role="alert">
             <span>Use your index finger to draw and make sure your hand is clearly visible to the camera.</span>
-            <button id="dismissTip" class="ml-4 bg-blue-700 px-3 py-1 rounded">Dismiss</button>
+            <button id="dismissTip" class="btn btn-primary btn-sm ms-3">Dismiss</button>
         </div>
 
-        <div class="card p-6 camera-container">
-            <div class="aspect-video w-full rounded-lg overflow-hidden">
-                <img id="cameraFeed" src="{{ url_for('video_feed') }}" class="w-full h-full object-cover">
-            </div>
-
-            <div class="flex space-x-4 mt-4">
-                <button id="clearCanvasBtn" class="flex items-center bg-red-500 text-white px-4 py-2 rounded">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                    </svg>
-                    Clear Canvas
-                </button>
-                <button id="solveBtn" class="flex items-center bg-green-500 text-white px-4 py-2 rounded">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
-                    </svg>
-                    Solve Problem
-                </button>
+        <div class="card bg-secondary text-white mb-4">
+            <div class="card-body">
+                <div class="rounded overflow-hidden" style="width: 700px; height: 400px; margin: 0 auto;">
+                    <img id="cameraFeed" src="{{ url_for('video_feed') }}" class="img-fluid" style="width: 100%; height: 100%;" alt="Camera feed">
+                </div>
+                
+                <div class="d-flex mt-4">
+                    <button id="clearCanvasBtn" class="btn btn-danger me-3 d-flex align-items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="bi bi-trash me-2" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M5.5 5.5v6h1v-6h-1zm4 0v6h1v-6h-1zm-7-3a.5.5 0 0 1 .5-.5H5V1a1 1 0 1 1 2 0v1h2V1a1 1 0 1 1 2 0v1h2.5a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-.25l-.563 9.1A1.5 1.5 0 0 1 9.188 14H6.813a1.5 1.5 0 0 1-1.499-1.4L4.75 6H4.5a.5.5 0 0 1-.5-.5v-1zm9-.5h-1v-.5a.5.5 0 0 0-.5-.5H4.5a.5.5 0 0 0-.5.5v.5h-1v-.5a1.5 1.5 0 0 1 1.5-1.5h6a1.5 1.5 0 0 1 1.5 1.5v.5z"/>
+                        </svg>
+                        Clear Canvas
+                    </button>
+                    <button id="solveBtn" class="btn btn-success d-flex align-items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="bi bi-cpu me-2" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M5 0h6a1 1 0 0 1 1 1v1h1a2 2 0 0 1 2 2v1h1a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1h-1v1a2 2 0 0 1-2 2h-1v1a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1H3a2 2 0 0 1-2-2v-1H0a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h1V3a2 2 0 0 1 2-2h1V1a1 1 0 0 1 1-1zm0 2H3a1 1 0 0 0-1 1v1h1v6H2v1a1 1 0 0 0 1 1h1v-1H3V3h2V2zm1 1v10h6V3H6zm7 1v6h1V5a1 1 0 0 0-1-1h-1V3h1zm0 7v1a1 1 0 0 1-1 1h-1v1h1a2 2 0 0 0 2-2v-1h-1zm-7 3H4v1a2 2 0 0 0 2 2h1v-1H6v-1zm-1-3V5H5v6h1z"/>
+                        </svg>
+                        Solve Problem
+                    </button>
+                </div>
             </div>
         </div>
 
-        <div class="card p-6">
-            <h3 class="text-xl font-bold mb-4">Solution</h3>
-            <div id="solution" class="text-lg text-gray-300 min-h-[100px]">
-                Write your math problem using hand gestures and click 'Solve Problem'
+        <div class="card bg-secondary text-white">
+            <div class="card-body">
+                <h3 class="h5 fw-bold mb-3">Solution</h3>
+                <div id="solution" class="border p-3 rounded bg-dark text-light" style="min-height: 100px;"></div>
             </div>
         </div>
     </main>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const clearCanvasBtn = document.getElementById('clearCanvasBtn');
@@ -66,7 +69,8 @@
 
             // Dismiss tip alert
             dismissTipBtn.addEventListener('click', () => {
-                tipAlert.style.display = 'none';
+                console.log("Clicked");
+                tipAlert.classList.add('d-none');
             });
 
             // Clear canvas
